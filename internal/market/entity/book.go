@@ -79,25 +79,20 @@ func min(a int, b int) int {
 func (b *Book) AddTransaction(transaction *Transaction, wg *sync.WaitGroup) {
 	defer wg.Done() // Executa ao fim do método
 
-	sellingShares := transaction.SellingOrder.PendingShares
-	buyingShares := transaction.BuingOrder.PendingShares
+	sellingShares := transaction.SalesOrder.PendingShares
+	buyingShares := transaction.PurchaseOrder.PendingShares
 
 	minShares := min(sellingShares, buyingShares)
 
-	transaction.SellingOrder.Investor.UpdateAssetPosition(transaction.SellingOrder.Asset.ID, -minShares)
-	transaction.SellingOrder.PendingShares -= minShares
-	transaction.BuingOrder.Investor.UpdateAssetPosition(transaction.BuingOrder.ID, minShares)
-	transaction.BuingOrder.PendingShares -= minShares
+	transaction.SalesOrder.Investor.UpdateAssetPosition(transaction.SalesOrder.Asset.ID, -minShares)
+	transaction.SalesOrder.PendingShares -= minShares
+	transaction.PurchaseOrder.Investor.UpdateAssetPosition(transaction.PurchaseOrder.ID, minShares)
+	transaction.PurchaseOrder.PendingShares -= minShares
 
-	transaction.Total = float64(transaction.Shares) * transaction.BuingOrder.Price
+	transaction.CalculateTotal(transaction.Shares, transaction.Price)
 
-	if transaction.BuingOrder.PendingShares == 0 {
-		transaction.BuingOrder.Status = closed
-	}
-	if transaction.SellingOrder.PendingShares == 0 {
-		transaction.SellingOrder.Status = closed
-	}
+	transaction.CloseBuyingOrder()
+	transaction.CloseSellingOrder()
 
 	b.Transaction = append(b.Transaction, transaction)
-	
 }

@@ -26,7 +26,6 @@ func (c * Consumer) Consume(msgChan chan *ckafka.Message) {
 	if err != nil {
 		panic(err)
 	}
-
 	for {
 		msg, err := consumer.ReadMessage(-1)
 		if err != nil {

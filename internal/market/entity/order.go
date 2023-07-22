@@ -1,10 +1,10 @@
 package entity
 
-type OrderType uint8
+type OrderType string
 
 const (
-	Buy OrderType = iota
-	Sell
+	Buy OrderType = "Buy"
+	Sell OrderType = "Sell"
 )
 
 func (s OrderType) String() string {
@@ -17,11 +17,11 @@ func (s OrderType) String() string {
 	return "unknown"
 }
 
-type OrderStatus uint8
+type OrderStatus string 
 
 const (
-	open OrderStatus = iota
-	closed
+	open OrderStatus = "open"
+	closed OrderStatus = "closed"
 )
 
 func (s OrderStatus) String() string {
@@ -47,6 +47,7 @@ type Order struct {
 }
 
 func NewOrder(orderId string, investor *Investor, asset *Asset, shares int, price float64, orderType OrderType) *Order {
+
 	return &Order{
 		ID:            orderId,
 		Investor:      investor,

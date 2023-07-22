@@ -21,7 +21,7 @@ func (i * Investor) AddAssetPosition(assetPosition *InvestorAssetPosition){
 func (i * Investor) UpdateAssetPosition(assetId string, qtdShares int){
 	assetPosition := i.GetAssetPosition(assetId)
 	if assetPosition == nil {
-		i.AssetPosition = append(i.AssetPosition, newInvestorAssetPosition(assetId, qtdShares))
+		i.AssetPosition = append(i.AssetPosition, NewInvestorAssetPosition(assetId, qtdShares))
 	}else {
 		assetPosition.Shares += qtdShares
 	}
@@ -42,7 +42,7 @@ type InvestorAssetPosition struct {
 }
 
 
-func newInvestorAssetPosition (assetID string, shares int) *InvestorAssetPosition{
+func NewInvestorAssetPosition (assetID string, shares int) *InvestorAssetPosition{
 	return &InvestorAssetPosition{
 		AssetID: assetID,
 		Shares: shares,

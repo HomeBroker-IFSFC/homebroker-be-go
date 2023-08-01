@@ -3,33 +3,39 @@ package entity
 type OrderType string
 
 const (
-	Buy OrderType = "Buy"
-	Sell OrderType = "Sell"
+	BUY  OrderType = "BUY"
+	SELL OrderType = "SELL"
 )
 
 func (s OrderType) String() string {
 	switch s {
-	case Buy:
-		return "Buy"
-	case Sell:
-		return "Sell"
+	case BUY:
+		return "BUY"
+	case SELL:
+		return "SELL"
 	}
 	return "unknown"
 }
 
-type OrderStatus string 
+type OrderStatus string
 
 const (
-	open OrderStatus = "open"
-	closed OrderStatus = "closed"
+	OPEN    OrderStatus = "OPEN"
+	CLOSED  OrderStatus = "CLOSED"
+	PENDING OrderStatus = "PENDING"
+	FAILED  OrderStatus = "FAILED"
 )
 
 func (s OrderStatus) String() string {
 	switch s {
-	case open:
-		return "open"
-	case closed:
-		return "close"
+	case OPEN:
+		return "OPEN"
+	case CLOSED:
+		return "CLOSED"
+	case PENDING:
+		return "PENDING"
+	case FAILED:
+		return "FAILED"
 	}
 	return "unknown"
 }
@@ -56,7 +62,7 @@ func NewOrder(orderId string, investor *Investor, asset *Asset, shares int, pric
 		PendingShares: shares,
 		Price:         price,
 		OrderType:     orderType,
-		Status:        open,
+		Status:        OPEN,
 		Transactions:  []*Transaction{},
 	}
 }

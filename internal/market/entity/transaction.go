@@ -2,6 +2,7 @@ package entity
 
 import (
 	"time"
+
 	"github.com/google/uuid"
 )
 
@@ -30,13 +31,13 @@ func NewTransaction(sellingOrder *Order, buingOrder *Order, shares int, price fl
 
 func (transaction *Transaction) CloseBuyingOrder() {
 	if transaction.PurchaseOrder.PendingShares == 0 {
-		transaction.PurchaseOrder.Status = closed
+		transaction.PurchaseOrder.Status = CLOSED
 	}
 }
 
 func (transaction *Transaction) CloseSellingOrder() {
 	if transaction.SalesOrder.PendingShares == 0 {
-		transaction.SalesOrder.Status = closed
+		transaction.SalesOrder.Status = CLOSED
 	}
 }
 

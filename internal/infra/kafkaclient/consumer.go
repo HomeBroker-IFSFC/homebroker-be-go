@@ -1,6 +1,8 @@
 package kafkaclient
 
 import (
+	"fmt"
+
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
@@ -28,6 +30,7 @@ func (c *Consumer) Consume(msgChan chan *kafka.Message) {
 	for {
 		msg, err := consumer.ReadMessage(-1)
 		if err != nil {
+			fmt.Println((msg.Value))
 			msgChan <- msg
 		}
 	}

@@ -46,7 +46,7 @@ func main() {
 			order := transformer.TransformInput(tradeInput)
 			ordersIn <- order
 		}
-	}()
+	}() // T4
 
 	for res := range ordersOut {
 		output := transformer.TransformOutput(res)
@@ -56,5 +56,5 @@ func main() {
 			fmt.Println(err)
 		}
 		producer.Publish(outputJson, []byte("orders"), "output")
-	}
+	} // Roda na Thread Principal
 }
